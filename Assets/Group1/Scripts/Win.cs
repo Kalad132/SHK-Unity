@@ -6,11 +6,11 @@ public class Win : MonoBehaviour
 {
     [SerializeField] private GameObject _gameoverScreen;
     [SerializeField] private GameObject _player;
-    [SerializeField] private EnemyContainier _enemyContainer;
+    [SerializeField] private Enemies _enemies;
 
     private void Update()
     {
-        if (_enemyContainer.Count == 0)
+        if (_enemies.Count == 0)
             GameOver();
     }
 

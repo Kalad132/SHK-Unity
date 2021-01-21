@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class EnemyContainier : MonoBehaviour
+public class Enemies : MonoBehaviour
 {
     [SerializeField] private Transform _player;
     [SerializeField] private float _checkDistance;
@@ -13,7 +13,7 @@ public class EnemyContainier : MonoBehaviour
     private void Start()
     {
         _enemies = new List<Transform>();
-        foreach (Enemy enemy in gameObject.GetComponentsInChildren<Enemy>())
+        foreach (EnemyMovement enemy in gameObject.GetComponentsInChildren<EnemyMovement>())
         {
             _enemies.Add(enemy.gameObject.transform);
         }
