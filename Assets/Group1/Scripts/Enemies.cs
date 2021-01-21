@@ -6,7 +6,7 @@ using UnityEngine;
 public class Enemies : MonoBehaviour
 {
     [SerializeField] private Transform _player;
-    [SerializeField] private float _checkDistance;
+    [SerializeField] private float _collisionRadius;
     private List<Transform> _enemies;
     public int Count => _enemies.Count;
 
@@ -23,7 +23,7 @@ public class Enemies : MonoBehaviour
     {
         for (var i = 0; i < _enemies.Count; i++)
         {
-            if (Vector3.Distance(_player.position, _enemies[i].position) < _checkDistance)
+            if (Vector3.Distance(_player.position, _enemies[i].position) < _collisionRadius)
             {
                 var temp = _enemies[i].gameObject;
                 _enemies.RemoveAt(i);
