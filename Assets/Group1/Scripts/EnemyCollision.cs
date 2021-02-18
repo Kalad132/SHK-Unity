@@ -1,21 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
-public class Enemies : MonoBehaviour
+public class EnemyCollision : MonoBehaviour
 {
     [SerializeField] private Transform _player;
     [SerializeField] private float _collisionRadius;
+
     private List<Transform> _enemies;
+
     public int Count => _enemies.Count;
 
     private void Start()
     {
         _enemies = new List<Transform>();
-        foreach (EnemyMovement enemy in gameObject.GetComponentsInChildren<EnemyMovement>())
+        foreach (EnemyMovement item in gameObject.GetComponentsInChildren<EnemyMovement>())
         {
-            _enemies.Add(enemy.gameObject.transform);
+            _enemies.Add(item.gameObject.transform);
         }
     }
 

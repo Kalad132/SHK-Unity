@@ -7,22 +7,27 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _range;
 
-    private Vector3 _position;
+    private Vector3 _target;
 
     private void Start()
     {
-        GetNewPosition(_range);
+        _target = transform.position;
     }
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _position, _speed * Time.deltaTime);
-        if (transform.position == _position)
-            _position = GetNewPosition(_range);
+        Move();
+        if (transform.position == _target)
+            SetNewTarget(_range);
     }
 
-    private Vector3 GetNewPosition (float range)
+    private void SetNewTarget (float range)
     {
-        return Random.insideUnitCircle * range;
+        _target = Random.insideUnitCircle * range;
+    }
+
+    private void Move()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, _target, _speed * Time.deltaTime);
     }
 }

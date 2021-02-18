@@ -6,7 +6,7 @@ public class Win : MonoBehaviour
 {
     [SerializeField] private GameObject _gameoverScreen;
     [SerializeField] private GameObject _player;
-    [SerializeField] private Enemies _enemies;
+    [SerializeField] private EnemyCollision _enemies;
 
     private void Update()
     {
