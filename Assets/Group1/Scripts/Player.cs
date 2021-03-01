@@ -3,13 +3,16 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float _baseSpeed;
+    [SerializeField] private float _speed;
     [SerializeField] private float _boostSpeedModifier;
     [SerializeField] private float _boostBaseTime;
 
     private float _boostTimeLeft;
 
-    private float _currentSpeed => _boostTimeLeft <= 0 ? _baseSpeed : _baseSpeed * _boostSpeedModifier;
+    public void BoostSpeed()
+    {
+        StartCoroutine(ChangeSpeed(_boostSpeedModifier, _boostBaseTime));
+    }
 
     private void Start()
     {
@@ -23,11 +26,14 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3();
         direction.x = Input.GetAxis("Horizontal");
         direction.y = Input.GetAxis("Vertical");
-        transform.Translate(direction * _currentSpeed * Time.deltaTime);
+        transform.Translate(direction * _speed * Time.deltaTime);
     }
 
-    public void BoostSpeed()
+    private IEnumerator ChangeSpeed(float modifier, float time)
     {
-        _boostTimeLeft = _boostBaseTime;
-    }
+        _speed *= _boostSpeedModifier;
+        yield return new WaitForSeconds(_boostBaseTime);
+        _speed /= _boostSpeedModifier;
+    } 
+
 }
