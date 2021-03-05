@@ -18,12 +18,12 @@ public class EnemyMovement : MonoBehaviour
     {
         Move();
         if (transform.position == _target)
-            SetNewTarget(_range);
+            _target = GetNewTarget(_range);
     }
 
-    private void SetNewTarget (float range)
+    private Vector3 GetNewTarget (float range)
     {
-        _target = Random.insideUnitCircle * range;
+        return Random.insideUnitCircle * range;
     }
 
     private void Move()
