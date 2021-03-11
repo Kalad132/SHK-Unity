@@ -10,12 +10,12 @@ public class CollisionHandler : MonoBehaviour
 
     private List<Transform> _colliders;
 
-    public event UnityAction EnemyKilled;
+    public event UnityAction<GameObject> Collided;
 
     private void Start()
     {
         _colliders = new List<Transform>();
-        foreach (Collider item in GetComponentsInChildren<Collider>())
+        foreach (CustomCollider item in GetComponentsInChildren<CustomCollider>())
         {
             _colliders.Add(item.gameObject.transform);
         }
@@ -27,14 +27,7 @@ public class CollisionHandler : MonoBehaviour
         {
             if (Vector3.Distance(_player.transform.position, _colliders[i].position) < _radius)
             {
-                if ( _colliders[i].TryGetComponent(out EnemyMovement enemy))
-                {
-                    EnemyKilled?.Invoke();
-                }
-                if (_colliders[i].TryGetComponent(out Booster booster))
-                {
-                    _player.BoostSpeed(booster.Modificatitor, booster.Time);
-                }
+                Collided?.Invoke(_colliders[i].gameObject);
                 DestroyAt(i);
             }
         }

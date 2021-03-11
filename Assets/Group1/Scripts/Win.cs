@@ -17,12 +17,12 @@ public class Win : MonoBehaviour
 
     private void OnEnable()
     {
-        _collisionHandler.EnemyKilled += OnEnemyKilled;
+        _collisionHandler.Collided += OnCollision;
     }
 
     private void OnDisable()
     {
-        _collisionHandler.EnemyKilled -= OnEnemyKilled;
+        _collisionHandler.Collided -= OnCollision;
     }
 
     private void GameOver()
@@ -31,10 +31,13 @@ public class Win : MonoBehaviour
         _player.SetActive(false);
     }
 
-    private void OnEnemyKilled()
+    private void OnCollision(GameObject collision)
     {
+        if (collision.TryGetComponent(out EnemyMovement enemy))
+        {
         _enemiesCount--;
         if (_enemiesCount == 0)
             GameOver();
+        }
     }
 }

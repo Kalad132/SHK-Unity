@@ -16,18 +16,13 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
-        Move();
+        transform.position = Vector3.MoveTowards(transform.position, _target, _speed * Time.deltaTime);
         if (transform.position == _target)
-            _target = GetNewTarget(_range);
+            _target = CreateTarget(_range);
     }
 
-    private Vector3 GetNewTarget (float range)
+    private Vector3 CreateTarget (float range)
     {
         return Random.insideUnitCircle * range;
-    }
-
-    private void Move()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, _target, _speed * Time.deltaTime);
     }
 }

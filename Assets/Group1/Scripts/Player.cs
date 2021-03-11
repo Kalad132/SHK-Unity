@@ -1,13 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private CollisionHandler _collisionHandler;
 
     public void BoostSpeed(float modifier, float time)
     {
         StartCoroutine(ChangeSpeed(modifier, time));
+    }
+
+    private void OnEnable()
+    {
+        _collisionHandler.Collided += OnCollision;
+    }
+
+    private void OnDisable()
+    {
+        _collisionHandler.Collided -= OnCollision;
+    }
+
+    private void OnCollision(GameObject collider)
+    {
+        if (collider.TryGetComponent(out Booster booster))
+        {
+            BoostSpeed(booster.Modificatitor, booster.Time);
+        }
     }
 
     private void Update()
@@ -24,5 +44,4 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(time);
         _speed /= modifier;
     } 
-
 }

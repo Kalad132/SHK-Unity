@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collider : MonoBehaviour
+public class CustomCollider : MonoBehaviour
 {
     
 }
